@@ -8,6 +8,10 @@ public class MovieEvent {
 
     private Date date;
 
+    public MovieEvent(String movieId, Date date) {
+        this.movieId = movieId;
+        this.date = date;
+    }
 
     public String getMovieId() {
         return movieId;
