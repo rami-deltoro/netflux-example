@@ -3,6 +3,7 @@ package com.rami.netflux.controllers;
 import com.rami.netflux.domain.Movie;
 import com.rami.netflux.domain.MovieEvent;
 import com.rami.netflux.service.MovieService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,9 @@ public class MovieController {
         this.movieService=movieService;
     }
 
-    @GetMapping(value = "/{id}/events")
+    // curl http://127.0.0.1:8080/movies/01a8c8cb-f2e6-46b2-8bb4-cd1cb869adb6/events
+    // This detects subscribers
+    @GetMapping(value = "/{id}/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<MovieEvent> streamMovieEvents(@PathVariable final String id){
         return movieService.events(id);
     }

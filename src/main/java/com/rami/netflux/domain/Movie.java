@@ -1,22 +1,19 @@
 package com.rami.netflux.domain;
 
-import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 @Table("Movies")
 public class Movie {
 
-    @PrimaryKeyColumn(
-            name = "id",
-            type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKey("id")
     private String id;
 
     @Column("title")
     private String title;
 
-    public Movie(String id, String title) {
+    public Movie(String title, String id) {
         this.id = id;
         this.title = title;
     }

@@ -31,10 +31,5 @@ public class BootstrapCLR implements CommandLineRunner {
                 .subscribe(null,null, () -> {
                     movieRepository.findAll().subscribe(System.out::println);
                 });
-
-
-
-
-
     }
 }
