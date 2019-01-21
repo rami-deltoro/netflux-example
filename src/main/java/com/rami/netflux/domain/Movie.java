@@ -10,11 +10,16 @@ public class Movie {
 
     @PrimaryKeyColumn(
             name = "id",
-            type = PrimaryKeyType.CLUSTERED)
+            type = PrimaryKeyType.PARTITIONED)
     private String id;
 
     @Column("title")
     private String title;
+
+    public Movie(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 
     public String getId() {
         return id;
@@ -30,5 +35,13 @@ public class Movie {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                '}';
     }
 }
