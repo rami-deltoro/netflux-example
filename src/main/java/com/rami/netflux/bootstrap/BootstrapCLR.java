@@ -23,12 +23,18 @@ public class BootstrapCLR implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        movieRepository.deleteAll().block();
+        movieRepository.deleteAll()
+                .thenMany(
+                        Flux.just("Terminator 2","Jumanji", "Emoji Movie","Casper")
+                                .map(title -> new Movie(title, UUID.randomUUID().toString()))
+                                .flatMap(movieRepository::save))
+                .subscribe(null,null, () -> {
+                    movieRepository.findAll().subscribe(System.out::println);
+                });
 
-        Flux.just("Terminator 2","Jumanji", "Emoji Movie","Casper")
-                .map(title -> new Movie(title, UUID.randomUUID().toString()))
-                .flatMap(movieRepository::save)
-                .subscribe(null,null, () ->movieRepository.findAll().subscribe(System.out::println));
+
+
+
 
     }
 }
